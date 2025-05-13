@@ -10,17 +10,16 @@ import java.util.Scanner;
 public class BSTmenu {
 
     public static void main(String[] args) {
-        
+
         BST<String, Integer> bst = new BST<>();
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
         do {
-            
-            System.out.println("\n--- Menú BST de Vocales ---");
-            System.out.println("1. Insertar vocal");
-            System.out.println("2. Obtener valor de una vocal");
-            System.out.println("3. Eliminar una vocal");
+            System.out.println("\n--- Menú BST de letras ---");
+            System.out.println("1. Insertar letra");
+            System.out.println("2. Obtener valor de una letra");
+            System.out.println("3. Eliminar una letra");
             System.out.println("4. Eliminar mínimo");
             System.out.println("5. Eliminar máximo");
             System.out.println("6. Mostrar mínimo y máximo");
@@ -28,9 +27,14 @@ public class BSTmenu {
             System.out.println("8. Buscar por índice (select)");
             System.out.println("9. Buscar índice de clave (rank)");
             System.out.println("10. Mostrar recorrido inorden");
+            System.out.println("11. Mostrar recorrido preorden");
+            System.out.println("12. Mostrar recorrido postorden");
+            System.out.println("13. Mostrar recorrido por niveles");
+            System.out.println("14. Mostrar altura del árbol");
+            System.out.println("15. Mostrar tamaño del árbol");
             System.out.println("0. Salir");
             System.out.print("Opción: ");
-            
+
             opcion = scanner.nextInt();
             scanner.nextLine();
 
@@ -44,40 +48,44 @@ public class BSTmenu {
                     int valor = scanner.nextInt();
                     bst.put(clave, valor);
                     break;
-                    
+
                 case 2:
                     
                     System.out.print("Ingrese la letra: ");
                     String buscar = scanner.nextLine().toUpperCase();
                     Integer val = bst.get(buscar);
-                    if (val != null) System.out.println("Valor: " + val);
-                    else System.out.println("No existe.");
+                    if (val != null) {
+                        System.out.println("Valor: " + val);
+                    } else {
+                        System.out.println("No existe.");
+                    }
                     break;
+
                 case 3:
                     
                     System.out.print("Ingrese la letra a eliminar: ");
                     String del = scanner.nextLine().toUpperCase();
                     bst.delete(del);
                     break;
-                    
+
                 case 4:
                     
                     bst.deleteMin();
                     System.out.println("Mínimo eliminado.");
                     break;
-                    
+
                 case 5:
                     
                     bst.deleteMax();
                     System.out.println("Máximo eliminado.");
                     break;
-                    
+
                 case 6:
                     
                     System.out.println("Mínimo: " + bst.min());
                     System.out.println("Máximo: " + bst.max());
                     break;
-                    
+
                 case 7:
                     
                     System.out.print("Clave para buscar floor y ceiling: ");
@@ -85,40 +93,76 @@ public class BSTmenu {
                     System.out.println("Floor: " + bst.floor(k));
                     System.out.println("Ceiling: " + bst.ceiling(k));
                     break;
-                    
+
                 case 8:
                     
                     System.out.print("Índice para select: ");
                     int idx = scanner.nextInt();
                     System.out.println("Clave: " + bst.select(idx));
                     break;
-                    
+
                 case 9:
                     
                     System.out.print("Clave para rank: ");
                     String claveRank = scanner.nextLine().toUpperCase();
                     System.out.println("Rank: " + bst.rank(claveRank));
                     break;
-                    
+
                 case 10:
                     
-                    System.out.println("Recorrido inorden del árbol:");
+                    System.out.println("Inorden:");
                     for (String letra : bst.keys()) {
                         System.out.println(letra + " -> " + bst.get(letra));
                     }
                     break;
+
+                case 11:
                     
+                    System.out.println("Preorden:");
+                    for (String letra : bst.preorder()) {
+                        System.out.println(letra + " -> " + bst.get(letra));
+                    }
+                    break;
+
+                case 12:
+                    
+                    System.out.println("Postorden:");
+                    for (String letra : bst.postorder()) {
+                        System.out.println(letra + " -> " + bst.get(letra));
+                    }
+                    break;
+
+                case 13:
+                    
+                    System.out.println("Por niveles:");
+                    for (String letra : bst.porNiveles()) {
+                        System.out.println(letra + " -> " + bst.get(letra));
+                    }
+                    break;
+
+                case 14:
+                    
+                    System.out.println("Altura del árbol: " + bst.altura());
+                    break;
+
+                case 15:
+                    
+                    System.out.println("Tamaño del árbol: " + bst.size());
+                    break;
+
                 case 0:
+                    
                     System.out.println("Saliendo...");
                     break;
-                    
+
                 default:
                     System.out.println("Opción inválida.");
+                    
             }
-            
+
         } while (opcion != 0);
 
         scanner.close();
     }
-            
+
 }
