@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Implementa en el menú dinámico y como sería ese método para visualizar la altura del árbol?
  * @author poeta
  * @param <Key>
  * @param <Value>
@@ -236,6 +236,89 @@ public class BST <Key extends Comparable<Key>, Value> {
         inorder(x.left, list);
         list.add(x.key);
         inorder(x.right, list);
+        
+    }
+
+    public Iterable<Key> preorder() {
+        
+        List<Key> keys = new ArrayList<>();
+        preorder(root, keys);
+        return keys;
+        
+    }
+
+    private void preorder(Node x, List<Key> keys) {
+        
+        if (x == null) {
+            return;
+        }
+        
+        keys.add(x.key);
+        preorder(x.left, keys);
+        preorder(x.right, keys);
+        
+    }
+
+    public Iterable<Key> postorder() {
+        
+        List<Key> keys = new ArrayList<>();
+        postorder(root, keys);
+        return keys;
+        
+    }
+
+    private void postorder(Node x, List<Key> keys) {
+        
+        if (x == null) {
+            return;
+        }
+        
+        postorder(x.left, keys);
+        postorder(x.right, keys);
+        keys.add(x.key);
+    }
+    
+    public int altura() {
+        return altura(root);
+    }
+
+    private int altura(Node nodo) {
+        
+        if (nodo == null) {
+            return -1; // Altura de un árbol vacío es -1 (por convención)
+        }
+        return 1 + Math.max(altura(nodo.left), altura(nodo.right));
+        
+    }
+    
+    public Iterable<Key> porNiveles() {
+        
+        List<Key> resultado = new ArrayList<>();
+        int h = altura();
+        
+        for (int nivel = 0; nivel <= h; nivel++) {
+            agregarNivel(root, nivel, resultado);
+        }
+        
+        return resultado;
+        
+    }
+
+    private void agregarNivel(Node nodo, int nivel, List<Key> resultado) {
+        
+        if (nodo == null) {
+            return;
+        }
+        
+        if (nivel == 0) {
+            
+            resultado.add(nodo.key);
+        } else {
+            
+            agregarNivel(nodo.left, nivel - 1, resultado);
+            agregarNivel(nodo.right, nivel - 1, resultado);
+            
+        }
         
     }
     
