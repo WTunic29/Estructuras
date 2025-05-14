@@ -10,159 +10,169 @@ import java.util.Scanner;
 public class BSTmenu {
 
     public static void main(String[] args) {
-
+        
         BST<String, Integer> bst = new BST<>();
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
+        Scanner sc = new Scanner(System.in);
 
-        do {
-            System.out.println("\n--- Menú BST de letras ---");
-            System.out.println("1. Insertar letra");
-            System.out.println("2. Obtener valor de una letra");
-            System.out.println("3. Eliminar una letra");
-            System.out.println("4. Eliminar mínimo");
-            System.out.println("5. Eliminar máximo");
-            System.out.println("6. Mostrar mínimo y máximo");
-            System.out.println("7. Buscar floor y ceiling");
-            System.out.println("8. Buscar por índice (select)");
-            System.out.println("9. Buscar índice de clave (rank)");
-            System.out.println("10. Mostrar recorrido inorden");
-            System.out.println("11. Mostrar recorrido preorden");
-            System.out.println("12. Mostrar recorrido postorden");
-            System.out.println("13. Mostrar recorrido por niveles");
-            System.out.println("14. Mostrar altura del árbol");
-            System.out.println("15. Mostrar tamaño del árbol");
-            System.out.println("0. Salir");
-            System.out.print("Opción: ");
-
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+        while (true) {
+            
+            System.out.println("\n===== MENÚ BST =====");
+            System.out.println("1. Insertar clave-valor");
+            System.out.println("2. Obtener valor por clave");
+            System.out.println("3. Eliminar clave");
+            System.out.println("4. Verificar si contiene clave");
+            System.out.println("5. Obtener mínimo");
+            System.out.println("6. Obtener máximo");
+            System.out.println("7. Eliminar mínimo");
+            System.out.println("8. Eliminar máximo");
+            System.out.println("9. Tamaño total");
+            System.out.println("10. ¿Está vacío?");
+            System.out.println("11. Obtener clave floor (menor o igual)");
+            System.out.println("12. Obtener clave ceiling (mayor o igual)");
+            System.out.println("13. Obtener claves en rango");
+            System.out.println("14. Rank (número de claves menores)");
+            System.out.println("15. Select (clave de un rango específico)");
+            System.out.println("16. Recorrido inorder");
+            System.out.println("17. Recorrido preorder");
+            System.out.println("18. Recorrido postorder");
+            System.out.println("19. Salir");
+            System.out.print("Selecciona una opción: ");
+            
+            int opcion = sc.nextInt();
+            sc.nextLine(); // limpiar buffer
 
             switch (opcion) {
                 
                 case 1:
                     
-                    System.out.print("Ingrese una letra de la (A - Z): ");
-                    String clave = scanner.nextLine().toUpperCase();
-                    System.out.print("Ingrese el valor (1 dígito): ");
-                    int valor = scanner.nextInt();
-                    bst.put(clave, valor);
+                    System.out.print("Clave: ");
+                    String key1 = sc.nextLine();
+                    System.out.print("Valor (entero): ");
+                    int val = sc.nextInt();
+                    sc.nextLine();
+                    bst.put(key1, val);
+                    System.out.println("Insertado.");
                     break;
-
+                    
                 case 2:
                     
-                    System.out.print("Ingrese la letra: ");
-                    String buscar = scanner.nextLine().toUpperCase();
-                    Integer val = bst.get(buscar);
-                    if (val != null) {
-                        System.out.println("Valor: " + val);
-                    } else {
-                        System.out.println("No existe.");
-                    }
+                    System.out.print("Clave: ");
+                    String key2 = sc.nextLine();
+                    Integer result = bst.get(key2);
+                    System.out.println(result != null ? "Valor: " + result : "Clave no encontrada.");
                     break;
-
+                    
                 case 3:
                     
-                    System.out.print("Ingrese la letra a eliminar: ");
-                    String del = scanner.nextLine().toUpperCase();
-                    bst.delete(del);
+                    System.out.print("Clave: ");
+                    String key3 = sc.nextLine();
+                    bst.delete(key3);
+                    System.out.println("Eliminado si existía.");
                     break;
-
+                    
                 case 4:
+                    
+                    System.out.print("Clave: ");
+                    String key4 = sc.nextLine();
+                    System.out.println(bst.contains(key4) ? "Sí contiene." : "No contiene.");
+                    break;
+                    
+                case 5:
+                    
+                    System.out.println("Mínimo: " + bst.min());
+                    break;
+                    
+                case 6:
+                    
+                    System.out.println("Máximo: " + bst.max());
+                    break;
+                    
+                case 7:
                     
                     bst.deleteMin();
                     System.out.println("Mínimo eliminado.");
                     break;
-
-                case 5:
+                    
+                case 8:
                     
                     bst.deleteMax();
                     System.out.println("Máximo eliminado.");
                     break;
-
-                case 6:
                     
-                    System.out.println("Mínimo: " + bst.min());
-                    System.out.println("Máximo: " + bst.max());
-                    break;
-
-                case 7:
-                    
-                    System.out.print("Clave para buscar floor y ceiling: ");
-                    String k = scanner.nextLine().toUpperCase();
-                    System.out.println("Floor: " + bst.floor(k));
-                    System.out.println("Ceiling: " + bst.ceiling(k));
-                    break;
-
-                case 8:
-                    
-                    System.out.print("Índice para select: ");
-                    int idx = scanner.nextInt();
-                    System.out.println("Clave: " + bst.select(idx));
-                    break;
-
                 case 9:
                     
-                    System.out.print("Clave para rank: ");
-                    String claveRank = scanner.nextLine().toUpperCase();
-                    System.out.println("Rank: " + bst.rank(claveRank));
+                    System.out.println("Tamaño: " + bst.size());
                     break;
-
+                    
                 case 10:
                     
-                    System.out.println("Inorden:");
-                    for (String letra : bst.keys()) {
-                        System.out.println(letra + " -> " + bst.get(letra));
-                    }
+                    System.out.println(bst.isEmpty() ? "Sí, está vacío." : "No, contiene elementos.");
                     break;
-
+                    
                 case 11:
                     
-                    System.out.println("Preorden:");
-                    for (String letra : bst.preorder()) {
-                        System.out.println(letra + " -> " + bst.get(letra));
-                    }
+                    System.out.print("Clave: ");
+                    String key5 = sc.nextLine();
+                    System.out.println("Floor: " + bst.floor(key5));
                     break;
-
+                    
                 case 12:
                     
-                    System.out.println("Postorden:");
-                    for (String letra : bst.postorder()) {
-                        System.out.println(letra + " -> " + bst.get(letra));
-                    }
+                    System.out.print("Clave: ");
+                    String key6 = sc.nextLine();
+                    System.out.println("Ceiling: " + bst.ceiling(key6));
                     break;
-
+                    
                 case 13:
                     
-                    System.out.println("Por niveles:");
-                    for (String letra : bst.porNiveles()) {
-                        System.out.println(letra + " -> " + bst.get(letra));
+                    System.out.print("Desde clave: ");
+                    String lo = sc.nextLine();
+                    System.out.print("Hasta clave: ");
+                    String hi = sc.nextLine();
+                    System.out.println("Claves en rango:");
+                    
+                    for (String k : bst.keys(lo, hi)) {
+                        System.out.println(k + " => " + bst.get(k));
+                    }
+                    
+                    break;
+                    
+                case 14:
+                    System.out.print("Clave: ");
+                    String key7 = sc.nextLine();
+                    System.out.println("Rank: " + bst.rank(key7));
+                    break;
+                case 15:
+                    System.out.print("Índice (rank): ");
+                    int idx = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Clave de ese rango: " + bst.select(idx));
+                    break;
+                case 16:
+                    System.out.println("Recorrido InOrder:");
+                    for (String k : bst.inorder()) {
+                        System.out.println(k + " => " + bst.get(k));
                     }
                     break;
-
-                case 14:
-                    
-                    System.out.println("Altura del árbol: " + bst.altura());
+                case 17:
+                    System.out.println("Recorrido PreOrder:");
+                    for (String k : bst.preorder()) {
+                        System.out.println(k + " => " + bst.get(k));
+                    }
                     break;
-
-                case 15:
-                    
-                    System.out.println("Tamaño del árbol: " + bst.size());
+                case 18:
+                    System.out.println("Recorrido PostOrder:");
+                    for (String k : bst.postorder()) {
+                        System.out.println(k + " => " + bst.get(k));
+                    }
                     break;
-
-                case 0:
-                    
-                    System.out.println("Saliendo...");
-                    break;
-
+                case 19:
+                    System.out.println("¡Hasta pronto!");
+                    sc.close();
+                    return;
                 default:
-                    System.out.println("Opción inválida.");
-                    
+                    System.out.println("Opción no válida.");
             }
-
-        } while (opcion != 0);
-
-        scanner.close();
+        }
     }
-
 }
